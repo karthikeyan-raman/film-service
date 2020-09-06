@@ -1,0 +1,19 @@
+version: '3'
+services:
+  film-service:
+    image: golang:1.14
+    command: ./scripts/dev.sh
+    volumes:
+      - .:/go/src/film-service
+    working_dir: /go/src/film-service
+    environment:
+      - GO111MODULE=on
+    ports:
+      - "8000:8000"
+      - "40000:40000"
+    depends_on:
+      - mysql
+  mysql:
+    image: restsql/mysql-sakila:latest
+    ports:
+      - "3306:3306"
